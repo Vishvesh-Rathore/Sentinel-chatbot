@@ -1,0 +1,38 @@
+# All application defaults live here so local models and retrieval settings are
+# explicit and can be changed without editing pipeline code.
+components:
+  loader: LocalFileLoader
+  chunker: TokenChunker
+  embedder: SentenceTransformerEmbedder
+  vector_store: QdrantLocalStore
+  llm: OllamaLLM
+
+models:
+  llm:
+    provider: ollama
+    name: qwen2.5:7b-instruct
+    fallback: qwen2.5:3b-instruct
+    base_url: http://localhost:11434
+    temperature: 0.1
+  embedder:
+    provider: sentence-transformers
+    name: BAAI/bge-m3
+    fallback: BAAI/bge-small-en-v1.5
+
+chunking:
+  size_tokens: 500
+  overlap_tokens: 75
+
+retrieval:
+  top_k: 5
+  minimum_score: 0.5
+
+vector_store:
+  provider: qdrant-local
+  path: data/qdrant
+  collection: sentinel
+
+paths:
+  raw_data: data/raw
+  processed_data: data/processed
+  logs: logs

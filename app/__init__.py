@@ -1,0 +1,2 @@
+"""Sentinel user-interface applications."""
+
